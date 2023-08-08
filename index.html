@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function getComputerChoice(){
+            let choice ="";
+            let random123 = Math.floor(Math.random()*3)+1
+            switch (random123){
+                case 1: 
+                    choice = "rock";
+                    break;
+                case 2:
+                    choice = "paper";
+                    break;
+                default :
+                    choice = "scissors";
+                    break;
+            }
+            return choice;
+        }
+        
+        function playRound(playerSelection, computerSelection){
+            if(playerSelection.toLowerCase()===computerSelection)
+            return "Tie! Both sides selected " + playerSelection;
+            if(playerSelection.toLowerCase()==="paper" && computerSelection==="rock" ||
+            playerSelection.toLowerCase()==="rock" && computerSelection==="scissors" ||
+            playerSelection.toLowerCase()==="scissors" && computerSelection==="paper")
+            return "You Win! " + playerSelection+ " beats " + computerSelection;
+
+            return "You Lose! " + computerSelection+ " beats " + playerSelection;
+        }
+
+        function findValid(playerSelection){
+            while(playerSelection.toLowerCase() !== "rock" && 
+            playerSelection.toLowerCase() !== "paper" &&
+            playerSelection.toLowerCase() !== "scissors"){
+                playerSelection = prompt("Please select a valid choice: rock, paper, or scissors");
+            }
+            return playerSelection;
+        }
+
+        function game(){
+            let wins=0; let losses=0; let ties=0;
+            for(let i=0; i<5;i++){
+                let playerSelection = findValid(prompt("Rock, Paper, or Scissors?"))
+                let computerSelection = getComputerChoice();
+                let outcome = playRound(playerSelection, computerSelection);
+                switch(outcome.slice(4,5)){
+                    case "W":
+                    wins++;
+                    break;
+
+                    case "L":
+                    losses++;
+                    break;
+
+                    default:
+                    ties++;
+                    break;
+                }
+                console.log(outcome + " " + wins + " Wins | " + losses + " Losses | "+ ties +" Ties");
+            }
+            if(wins > losses)
+            console.log("You Win!");
+            if(wins < losses)
+            console.log("You Lose!")
+            if(wins === losses)
+            console.log("You Tie!");
+        }
+
+        game();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
