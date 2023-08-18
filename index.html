@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+</head>
+<body>
+    <button class = "choice">rock</button>
+    <button class = "choice">paper</button>
+    <button class = "choice">scissors</button>
     <script>
         function getComputerChoice(){
             let choice ="";
@@ -42,12 +47,17 @@
             return playerSelection;
         }
 
-        function game(){
-            let wins=0; let losses=0; let ties=0;
-            for(let i=0; i<5;i++){
-                let playerSelection = findValid(prompt("Rock, Paper, or Scissors?"))
-                let computerSelection = getComputerChoice();
-                let outcome = playRound(playerSelection, computerSelection);
+        let wins=0; let losses=0; let ties=0;
+        const buttons = document.querySelectorAll(".choice")
+        buttons.forEach(function(button){
+            button.addEventListener('click', newGame)
+        })
+
+        function newGame(e){
+            console.log(e.target.textContent)
+            let playerSelection = e.target.textContent;
+            let computerSelection = getComputerChoice();
+            let outcome = playRound(playerSelection, computerSelection);
                 switch(outcome.slice(4,5)){
                     case "W":
                     wins++;
@@ -61,20 +71,8 @@
                     ties++;
                     break;
                 }
-                console.log(outcome + " " + wins + " Wins | " + losses + " Losses | "+ ties +" Ties");
-            }
-            if(wins > losses)
-            console.log("You Win!");
-            if(wins < losses)
-            console.log("You Lose!")
-            if(wins === losses)
-            console.log("You Tie!");
+            console.log(outcome + " " + wins + " Wins | " + losses + " Losses | "+ ties +" Ties");
         }
-
-        game();
     </script>
-</head>
-<body>
-    
 </body>
 </html>
