@@ -9,7 +9,22 @@
     <button class = "choice">rock</button>
     <button class = "choice">paper</button>
     <button class = "choice">scissors</button>
+    <div class ="selection">Your Choice: </div>
+    <div class ="cSelection">Computers Choice: </div>
+    <div class ="result">Result: </div>
+    <div class ="winner">Winner: </div>
     <script>
+        let yourSelection = document.querySelector(".selection")
+        let compSelection = document.querySelector(".cSelection")
+        let yourResult = document.querySelector(".result")
+        let winner = document.querySelector(".winner");
+
+        function printResults(yours, theirs, result){
+            yourSelection.textContent = `Your Choice: ${yours}`
+            compSelection.textContent = `Computer's Choice: ${theirs}`
+            yourResult.textContent = `Result: ${result}`
+        }
+
         function getComputerChoice(){
             let choice ="";
             let random123 = Math.floor(Math.random()*3)+1
@@ -54,7 +69,10 @@
         })
 
         function newGame(e){
-            console.log(e.target.textContent)
+            if(wins + losses + ties ===5 ){
+                return;
+            }
+
             let playerSelection = e.target.textContent;
             let computerSelection = getComputerChoice();
             let outcome = playRound(playerSelection, computerSelection);
@@ -71,8 +89,22 @@
                     ties++;
                     break;
                 }
-            console.log(outcome + " " + wins + " Wins | " + losses + " Losses | "+ ties +" Ties");
+            if(wins + losses + ties === 5){
+                if(wins>losses){
+                    winner.textContent = "Winner: YOU!"
+                }
+                else if(wins<losses){
+                    winner.textContent = "Winner: Computer :("
+                }
+                else{
+                    winner.textContent = "Winner: It's a tie!"
+                }
+            }
+            printResults(playerSelection, computerSelection, outcome + " " + wins + " Wins | " + losses + " Losses | "+ ties +" Ties");
         }
     </script>
+    <style>
+
+    </style>
 </body>
 </html>
